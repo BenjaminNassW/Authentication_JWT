@@ -21,4 +21,26 @@ def handle_hello():
 @api.route('/register', methods=['POST'])
 def register():
     body = request.get_json()
-    return jsonify(body),201
+    onePeople = User.query.filter_by(email=body['email']).first()
+    if (onePeople):
+        return jsonify({"error":"ya existe"}),418
+    else:
+        nuevo_usuario = User(email=body['email'], password=body['password'], is_active=True)
+        db.session.add(nuevo_usuario)
+        db.session.commit()
+        return jsonify(body),201
+
+@api.route('/login', methods=['POST'])
+def login():
+    body=request.get_json()
+    onePeople = User.query.filter_by(email=body['email'], password=body['password']).first()
+    if onePeople:
+        token=create_access_token(identity=body['email'])
+        return jsonify({'access_token':token, 'mensaje':'inicio de sesion correcto'}),200
+    else:
+        return jsonify({"error":"no existe usuario"}),418
+
+@api.route('/privada',methods=['GET'])
+@jwt_required()
+def privada():
+    return jsonify({"mensaje":"tienes permiso","permiso":True})
