@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Register = () => {
@@ -55,15 +56,17 @@ export const Register = () => {
             Check me out
           </label>
         </div>
-        <button
-          onClick={() => {
-            actions.register(email, password);
-          }}
-          type="submit"
-          className="btn btn-primary"
-        >
-          Submit
-        </button>
+        <Link to={"/login"}>
+          <button
+            onClick={() => {
+              actions.register(email, password);
+            }}
+            type="submit"
+            className="btn btn-primary"
+          >
+            Submit
+          </button>
+        </Link>
       </form>
     </div>
   );
