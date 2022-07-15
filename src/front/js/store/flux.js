@@ -94,7 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
 
         fetch(
-          "https://3001-4geeksacade-reactflaskh-zla6adju91a.ws-us47.gitpod.io/api/register",
+          "https://3001-4geeksacade-reactflaskh-zla6adju91a.ws-us54.gitpod.io/api/register",
           requestOptions
         )
           .then((response) => response.text())

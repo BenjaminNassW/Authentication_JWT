@@ -57,17 +57,16 @@ export const Login = () => {
             Check me out
           </label>
         </div>
-        <Link to={"/privada"}>
-          <button
-            onClick={() => {
-              actions.login(email, password);
-            }}
-            type="submit"
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-        </Link>
+
+        <button
+          onClick={() => {
+            actions.login(email, password);
+          }}
+          type="submit"
+          className="btn btn-primary"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );

@@ -10,13 +10,7 @@ export const Profile = () => {
   }, []);
   return (
     <h1>
-      {store.permiso ? (
-        `Access granted ${store.user}`
-      ) : (
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-        </Routes>
-      )}
+      {store.permiso ? `Access granted ${store.user}` : "No tienes permiso"}
     </h1>
   );
 };
