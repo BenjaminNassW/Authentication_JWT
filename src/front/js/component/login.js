@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { actions } = useContext(Context);
-
+  const navigate = useNavigate();
   return (
     <div className="container">
       <h1>Login</h1>
@@ -60,7 +60,7 @@ export const Login = () => {
 
         <button
           onClick={() => {
-            actions.login(email, password);
+            actions.login(email, password, navigate);
           }}
           type="submit"
           className="btn btn-primary"

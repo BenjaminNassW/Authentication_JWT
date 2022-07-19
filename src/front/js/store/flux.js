@@ -23,7 +23,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         getActions().changeColor(0, "green");
       },
 
-      privado: () => {
+      privado: (navigate) => {
+        if (!sessionStorage.getItem("token")) {
+          navigate("/login");
+        }
         var myHeaders = new Headers();
         myHeaders.append(
           "Authorization",
@@ -40,16 +43,23 @@ const getState = ({ getStore, getActions, setStore }) => {
           "https://3001-4geeksacade-reactflaskh-zla6adju91a.ws-us54.gitpod.io/api/privada",
           requestOptions
         )
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status == 401) {
+              navigate("/login");
+              return;
+            }
+            return response.json();
+          })
           .then((result) => {
             console.log(result);
+
             setStore({ permiso: result.permiso });
             setStore({ user: result.email });
           })
           .catch((error) => console.log("error", error));
       },
 
-      login: (email, password) => {
+      login: (email, password, navigate) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -72,7 +82,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((response) => response.json())
           .then((result) => {
             console.log(result);
-            sessionStorage.setItem("token", result.access_token);
+            if (result.access_token) {
+              sessionStorage.setItem("token", result.access_token);
+              navigate("/privada");
+            }
           })
           .catch((error) => console.log("error", error));
       },
