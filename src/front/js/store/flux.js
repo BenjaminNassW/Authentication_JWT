@@ -23,6 +23,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         getActions().changeColor(0, "green");
       },
 
+      logout: (navigate) => {
+        sessionStorage.removeItem("token");
+        navigate("/login");
+      },
+
       privado: (navigate) => {
         if (!sessionStorage.getItem("token")) {
           navigate("/login");
